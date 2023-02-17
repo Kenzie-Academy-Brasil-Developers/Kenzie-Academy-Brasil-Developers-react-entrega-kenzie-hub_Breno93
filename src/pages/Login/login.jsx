@@ -17,6 +17,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { ContainerLogin, FormLogin, FormContent, LogoImg } from "./style";
 import { Input } from "../../components/Input";
 
+import { toast } from "react-toast";
+
 const schema = yup.object({
   email: yup.string().required("Email obrigatório").email("O email é inválido"),
   password: yup.string().required("Senha obrigatória"),
@@ -39,14 +41,16 @@ export const Login = () => {
       localStorage.setItem("@TOKEN", response.data.token);
       localStorage.setItem("@id", response.data.user.id);
       console.log(response.data);
+      toast.success("Login realizado com sucesso!");
       navigate("/home");
     } catch (error) {
+      toast.error("Ops! Algo deu errado.");
       console.error(error);
     }
   };
 
   return (
-    <ContainerLogin className="container-login-page">
+    <ContainerLogin>
       <FormLogin onSubmit={handleSubmit(login)}>
         <LogoImg src={logo} alt="Logo Kenzie" />
         <FormContent>
@@ -62,8 +66,8 @@ export const Login = () => {
 
           <Input
             label="Senha"
-            type="text"
-            placeholder="Digite o seu nome"
+            type="password"
+            placeholder="Digite sua senha"
             register={register("password")}
             error={errors.password?.message}
           />

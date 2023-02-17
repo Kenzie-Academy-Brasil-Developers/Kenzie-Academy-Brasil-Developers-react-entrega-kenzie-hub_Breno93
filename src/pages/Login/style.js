@@ -5,7 +5,6 @@ export const ContainerLogin = styled.div`
   height: 100vh;
   display: flex;
   align-items: center;
-  flex-direction: column;
 `;
 
 export const FormLogin = styled.form`
