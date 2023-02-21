@@ -55,9 +55,18 @@ export const RegisterForm = () => {
   });
 
   const registerForm = async (data) => {
-    console.log(data);
+    const formData = {
+      email: data.email,
+      password: data.password,
+      name: data.name,
+      bio: data.bio,
+      contact: data.contact,
+      course_module: data.course_module,
+    };
+
+    console.log(formData);
     try {
-      const response = await api.post("/users", data);
+      const response = await api.post("/users", formData);
       navigate("/");
       console.log(response.data);
     } catch (error) {
