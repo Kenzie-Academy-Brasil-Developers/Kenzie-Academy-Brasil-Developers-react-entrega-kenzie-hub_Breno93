@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { Input } from "../Input";
 import { ComponentButtonCadastrar } from "../Button";
@@ -6,8 +6,6 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useNavigate } from "react-router-dom";
 import { SelectRegister } from "../SelectRegister";
-import { api } from "../../services/api";
-import styled from "styled-components";
 import {
   ContainerRegister,
   FormContent,
@@ -18,6 +16,7 @@ import {
 import { Link } from "react-router-dom";
 
 import logo from "../../assets/Logo.png";
+import { UserContext } from "../../providers/UserContext";
 
 const schema = yup.object({
   name: yup.string().required("Nome é obrigatório"),
@@ -44,6 +43,7 @@ const schema = yup.object({
 });
 
 export const RegisterForm = () => {
+  const { registerForm } = useContext(UserContext);
   const navigate = useNavigate();
 
   const {
@@ -53,26 +53,6 @@ export const RegisterForm = () => {
   } = useForm({
     resolver: yupResolver(schema),
   });
-
-  const registerForm = async (data) => {
-    const formData = {
-      email: data.email,
-      password: data.password,
-      name: data.name,
-      bio: data.bio,
-      contact: data.contact,
-      course_module: data.course_module,
-    };
-
-    console.log(formData);
-    try {
-      const response = await api.post("/users", formData);
-      navigate("/");
-      console.log(response.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   return (
     <ContainerRegister>

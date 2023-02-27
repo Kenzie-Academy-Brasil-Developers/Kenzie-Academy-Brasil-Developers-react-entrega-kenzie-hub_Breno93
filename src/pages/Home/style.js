@@ -46,3 +46,78 @@ export const SectionTecnologias = styled.div`
   align-items: center;
   justify-content: space-between;
 `;
+
+export const DivTitleTecnologias = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 659px;
+
+  margin-bottom: 28px;
+
+  & h2 {
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 18px;
+    color: var(--grey-0);
+  }
+
+  & button {
+    /* grey-3 */
+
+    background: #212529;
+    border-radius: 4px;
+    padding: 11px 12px;
+    cursor: pointer;
+
+    color: var(--grey-0);
+    border: none;
+  }
+`;
+
+export const DivUl = styled.ul`
+  width: 296px;
+  height: 416.37px;
+  left: 12px;
+  top: 276px;
+
+  background: var(--grey-3);
+  border-radius: 4px;
+  width: 100%;
+  max-width: 659px;
+
+  height: max-content;
+  padding: 20px 20px;
+
+  & li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12.182px;
+
+    width: 100%;
+    max-width: 659px;
+    height: 48.73px;
+
+    background: var(--grey-4);
+    border-radius: 4.06066px;
+
+    margin: 0 auto;
+    margin-bottom: 12px;
+
+    cursor: pointer;
+
+    & p {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 700;
+      font-size: 14.2123px;
+      line-height: 24px;
+
+      color: var(--grey-0);
+    }
+  }
+`;

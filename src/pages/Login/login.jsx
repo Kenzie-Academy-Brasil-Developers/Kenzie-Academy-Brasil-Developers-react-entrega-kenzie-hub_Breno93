@@ -1,23 +1,13 @@
-import React from "react";
-import { api } from "../../services/api";
-import styled from "styled-components";
+import React, { useContext } from "react";
 import logo from "../../assets/Logo.png";
-
-import {
-  ComponentButtonCadastrar,
-  ComponentButtonEntrar,
-} from "../../components/Button";
-
+import { ComponentButtonEntrar } from "../../components/Button";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { Register } from "../Register/register";
-import { Link, useNavigate } from "react-router-dom";
-
+import { Link } from "react-router-dom";
 import { ContainerLogin, FormLogin, FormContent, LogoImg } from "./style";
 import { Input } from "../../components/Input";
-
-import { toast } from "react-toast";
+import { UserContext } from "../../providers/UserContext";
 
 const schema = yup.object({
   email: yup.string().required("Email obrigatório").email("O email é inválido"),
@@ -25,7 +15,7 @@ const schema = yup.object({
 });
 
 export const Login = () => {
-  const navigate = useNavigate();
+  const { login } = useContext(UserContext);
   const {
     register,
     handleSubmit,
@@ -34,24 +24,13 @@ export const Login = () => {
     resolver: yupResolver(schema),
   });
 
-  const login = async (data) => {
-    console.log(data);
-    try {
-      const response = await api.post("/sessions", data);
-      localStorage.setItem("@TOKEN", response.data.token);
-      localStorage.setItem("@id", response.data.user.id);
-      console.log(response.data);
-      toast.success("Login realizado com sucesso!");
-      navigate("/home");
-    } catch (error) {
-      toast.error("Ops! Algo deu errado.");
-      console.error(error);
-    }
+  const handleLogin = async (data) => {
+    await login(data);
   };
 
   return (
     <ContainerLogin>
-      <FormLogin onSubmit={handleSubmit(login)}>
+      <FormLogin onSubmit={handleSubmit(handleLogin)}>
         <LogoImg src={logo} alt="Logo Kenzie" />
         <FormContent>
           <h2>Login</h2>
