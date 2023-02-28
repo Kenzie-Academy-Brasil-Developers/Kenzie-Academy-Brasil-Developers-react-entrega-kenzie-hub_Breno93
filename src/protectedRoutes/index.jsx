@@ -1,17 +1,13 @@
 import React, { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../providers/UserContext";
+import { Navigate } from "react-router-dom";
 
 export const ProtectedRoutes = ({ children }) => {
   const { user } = useContext(UserContext);
-
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    console.log(user);
-    if (!user) {
-      navigate("/");
-    }
-  }, []);
-  return <>{user ? children : null}</>;
+  if (!user) {
+    // user is not authenticated
+    return <Navigate to="/" />;
+  }
+  return children;
 };
